@@ -1,0 +1,45 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+
+ body{
+    height: 100%;
+    width: 100%;
+ }
+
+ .head {
+    height: 300px;
+    width: 250px;
+    /* border: 2px solid rgb(238, 213, 189); */
+    margin: 0 auto;
+    border-radius: 33% 33% 50% 50%;
+    background-color: rgb(238, 213, 189);
+    /* display: wrap; */
+    
+ }
+
+ .eyes{
+    height: 42px;
+    width: 70px;
+    background-color: #fff;
+    border-radius: 100% 0;
+    display: inline-block;
+    margin: 26px;
+    position: relative;
+    top: 52px;
+    transform: rotate(20deg);
+ }
+
+ #eye2{
+    border-radius: 0 100%;
+    transform: rotate(161deg);
+ }
+
+.eyes::before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background-color: #000;
+    border-radius: 50%;
+}

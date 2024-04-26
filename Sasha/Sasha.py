@@ -2,6 +2,8 @@ import pyttsx3
 import speech_recognition as sr
 import datetime
 import wikipedia
+import webbrowser
+import os
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -24,7 +26,7 @@ def wishMe():
     else:
         speak("Good Evening!")
 
-    speak("Hello mam, i'm Sasha. How can i help you? ")
+    speak("Hello sir, i'm Sasha. How can i help you? ")
 
 def takeCommand():
 
@@ -51,10 +53,31 @@ if __name__ == "__main__":
     while True:
         query = takeCommand().lower()
 
+        # logic for executing tasks based on query
+
         if 'wikipedia' in query:
             speak("Searching wikipedia...")
             query = query.replace("wikipedia", "")
             results = wikipedia.summary(query, sentences=2)
             speak("According to wikipedia")
+            print(results)
             speak(results)
 
+        elif 'open youtube' in query:
+            webbrowser.open("youtube.com")
+
+        elif 'open google' in query:
+            webbrowser.open("google.com")
+
+            
+        elif 'play music' in query:
+              music_dir = 'C:\\Users\\Hp\\AppData\\Local\\Packages\\AD2F1837.HPQuickDrop_v10z8vjag6ke6\\LocalState\\My Received Files'
+              songs = os.listdir(music_dir)
+              print(songs)
+              os.startfile(os.path.join(music_dir,songs[0]))
+
+        elif ' the time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")
+            speak(f"Sir, the time is {strTime}")
+            print(strTime)
+             

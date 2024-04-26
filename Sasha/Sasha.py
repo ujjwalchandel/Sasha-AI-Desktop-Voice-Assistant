@@ -80,4 +80,7 @@ if __name__ == "__main__":
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f"Sir, the time is {strTime}")
             print(strTime)
+
+        elif 'open instagram' in query:
+            webbrowser.open("instagram.com")    
              

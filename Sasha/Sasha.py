@@ -8,6 +8,12 @@ import smtplib
 import ecapture
 import json
 from urllib.request import urlopen
+import wolframalpha
+try:
+    client = wolframalpha.Client("64TY6Q-RPLX9JTKK4")
+except Exception:
+    print("internet connection failed")
+   
 
 
 engine = pyttsx3.init('sapi5')
@@ -31,7 +37,7 @@ def wishMe():
     else:
         speak("Good Evening!")
 
-    speak("Hello sir, i'm Sasha. How can i help you? ")
+    speak("Hello boss, i'm Sasha. How can i help you? ")
 
 def takeCommand():
 
@@ -53,12 +59,14 @@ def takeCommand():
         return "None"
     return query
 def sendEmail(to, content):
-    server = smtplib.SMTP("smtl.gmail.com", 587)
+    server = smtplib.SMTP("smtp.gmail.com", 587)
     server.ehlo()
     server.starttls()
-    server.login('ujjwalraj8935@gmail.com', 'password')
+    server.login('ujjwal2104cse@gemspolytechnic.edu.in', '#')
     server.sendmail('ujjwalraj8935@gmail.com', to, content)
     server.close()
+
+
 
 
 
@@ -88,8 +96,8 @@ if __name__ == "__main__":
         elif 'open instagram' in query:
             webbrowser.open("instagram.com")
 
-        elif 'paly music' in query:
-            music_dir = 'D:\\ Non Criticals\\...'
+        elif 'play music' in query or 'play song'in query:
+            music_dir = 'E:\\songs'
             songs = os.listdir(music_dir)
             print(songs)
             os.startfile(os.path.join(music_dir, songs[0]))
@@ -98,15 +106,11 @@ if __name__ == "__main__":
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f"sir, the time is {strTime}")
 
-        elif 'open code' in query:
+        elif 'open code' in query or "open visual studio" in query:
             codePath= "C:\\Users\\ujjwa\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
             os.startfile(codePath)
 
-        elif 'open virtual studio' in query:
-            codePath= "C:\\Users\\ujjwa\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
-            os.startfile(codePath)
-
-        elif "camera" in query or "take a photo" in query:
+        elif "camera" in query or "take a photo" in query or "take a selfie" in query:
             ecapture.capture(0, "Jarvis Camera ", "img.jpg")
 
         elif "who are you" in query:
@@ -132,14 +136,34 @@ if __name__ == "__main__":
                  
                 print(str(e))
 
+        elif 'email to ujjwal' in query:
+            try:
+                speak("What should I say?")
+                content = takeCommand()
+                to = "ujjwalraj8935@gmail.com"   
+                sendEmail(to, content)
+                speak("Email has been sent !")
+            except Exception as e:
+                print(e)
+                speak("I am not able to send this email")
 
-        # elif 'send email to ujjwal' in query:
-        #     try:
-        #         speak("what should i send ?")
-        #         content= takeCommand()
-        #         to = "ujjwalraj8935@gmail.com"
-        #         sendEmail(to, content)
-        #         speak("email has been sent!")
-        #     expect exception as e:
-        #         print(e)
-        #     speak("sorry sir, i'm not able to send this email")
+        elif "say sorry" in query:
+            speak("i'm sorry palak, forgive me, you are my cutest sister")
+
+        else:
+            try:
+                query = query.replace("sasha", "")
+                res = client.query(query)
+                output = next(res.results).text
+                speak(next(res.results).text)
+                print(next(res.results).text)
+            except Exception:
+                print("internet connection failed")
+                speak("internet connection failed")
+
+
+
+        
+
+
+        
